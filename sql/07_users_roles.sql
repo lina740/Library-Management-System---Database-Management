@@ -1,0 +1,44 @@
+-- Users, roles, and privileges (role-based access control)
+-- Run as a privileged user (e.g., SYSTEM). Passwords are sample values for a class project.
+
+DROP USER wajd CASCADE;
+DROP USER Lina CASCADE;
+DROP USER Reema CASCADE;
+DROP USER Rawda CASCADE;
+
+DROP ROLE Admin;
+DROP ROLE Moderator;
+DROP ROLE Guest;
+DROP ROLE Member;
+
+-- ADMIN
+CREATE USER wajd IDENTIFIED BY W01;
+CREATE ROLE Admin;
+GRANT ALL PRIVILEGES ON Books TO Admin;
+GRANT ALL PRIVILEGES ON Members TO Admin;
+GRANT ALL PRIVILEGES ON Borrowing TO Admin;
+GRANT ALL PRIVILEGES ON Users TO Admin;
+GRANT CREATE USER, ALTER USER, DROP USER, CREATE SESSION TO Admin;
+GRANT Admin TO wajd;
+
+-- MODERATOR
+CREATE USER Lina IDENTIFIED BY L02;
+CREATE ROLE Moderator;
+GRANT SELECT, INSERT, UPDATE, DELETE ON Books TO Moderator;
+GRANT SELECT, UPDATE ON Members TO Moderator;
+GRANT SELECT ON Borrowing TO Moderator;
+GRANT Moderator TO Lina;
+
+-- MEMBER
+CREATE USER Rawda IDENTIFIED BY Raw03;
+CREATE ROLE Member;
+GRANT SELECT ON Books TO Member;
+GRANT SELECT, INSERT, UPDATE ON Borrowing TO Member;
+GRANT Member TO Rawda;
+
+-- GUEST
+CREATE USER Reema IDENTIFIED BY R04;
+CREATE ROLE Guest;
+GRANT SELECT ON Books TO Guest;
+GRANT SELECT ON Borrowing TO Guest;
+GRANT Guest TO Reema;
